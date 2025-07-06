@@ -171,9 +171,6 @@ public class ClientApp extends JFrame {
             return;
         }
 
-        updateConnectionStatus("Connecting...", false);
-        statusLabel.setForeground(Color.ORANGE);
-
         // Verify credentials
         Properties userProps = loadProps(userPropsFile);
         if (!userProps.getProperty("user").equals(username) ||
@@ -181,7 +178,6 @@ public class ClientApp extends JFrame {
             JOptionPane.showMessageDialog(this,
                     "Credentials do not match " + userPropsFile,
                     "Login Failed", JOptionPane.ERROR_MESSAGE);
-            updateConnectionStatus("Login Failed", false);
             return;
         }
         loginUsername = userProps.getProperty("user");
@@ -194,7 +190,6 @@ public class ClientApp extends JFrame {
             JOptionPane.showMessageDialog(this,
                     "Cannot connect to DB:\n" + ex.getMessage(),
                     "Connection Error", JOptionPane.ERROR_MESSAGE);
-            updateConnectionStatus("Connection Failed", false);
             return;
         }
 
@@ -238,11 +233,6 @@ public class ClientApp extends JFrame {
             return;
         }
 
-        // Update status to show execution
-        String originalStatus = statusLabel.getText();
-        updateConnectionStatus("Executing SQL...", true);
-        statusLabel.setForeground(Color.ORANGE);
-
         try {
             String verb = sql.split("\\s+")[0].toLowerCase();
             if (List.of("select","show","desc").contains(verb)) {
@@ -264,17 +254,9 @@ public class ClientApp extends JFrame {
                 if (!"theaccountant".equals(loginUsername)) logOperation(false);
             }
 
-            // Restore original status
-            statusLabel.setText(originalStatus);
-            statusLabel.setForeground(Color.GREEN);
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this,
                     ex.getMessage(), "SQL Error", JOptionPane.ERROR_MESSAGE);
-
-            // Restore original status
-            statusLabel.setText(originalStatus);
-            statusLabel.setForeground(Color.GREEN);
         }
     }
 
