@@ -1,3 +1,11 @@
+/*
+Name: Medha Subramaniyan
+Course: CNT 4714 Summer 2025
+Assignment title: Project 3 – A Specialized Accountant Application
+Date: July 6, 2025
+Class: ClientApp
+*/
+
 package project3.mainapp;
 
 import project3.util.DBConnectionUtil;
@@ -15,7 +23,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * The main client application for Project 3.
+ * The main client application !!!!!!!----
  */
 public class ClientApp extends JFrame {
     private JComboBox<String> dbCombo, userCombo;

@@ -1,5 +1,5 @@
 /*
-Name: <your name goes here>
+Name: Medha Subramaniyan
 Course: CNT 4714 Summer 2025
 Assignment title: Project 3 – A Specialized Accountant Application
 Date: July 6, 2025
@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * The specialized accountant application for Project 3.
- * This application is restricted to theaccountant user and operationslog database only.
+ ACCTNT ONLY theaccountant user and operationslog database !*!*!*
  */
 public class AccountantApp extends JFrame {
     private JTextField userField;
@@ -49,10 +48,10 @@ public class AccountantApp extends JFrame {
     }
 
     private void initComponents() {
-        // North: Fixed database info and login fields
+        // Fixed database info and login fields
         JPanel north = new JPanel(new BorderLayout(10, 10));
 
-        // Top row: Fixed database information (no dropdowns)
+        // Fixed database
         JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         JLabel dbLabel = new JLabel("Database: operationslog (Fixed)");
         JLabel userLabel = new JLabel("Login as: theaccountant (Fixed)");
@@ -62,7 +61,7 @@ public class AccountantApp extends JFrame {
         infoPanel.add(Box.createHorizontalStrut(50));
         infoPanel.add(userLabel);
 
-        // Bottom row: Username and password fields for credential verification
+        //username and password fields for credential verification
         JPanel credentialsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         userField = new JTextField(15);
         passField = new JPasswordField(15);
@@ -74,7 +73,7 @@ public class AccountantApp extends JFrame {
         north.add(infoPanel, BorderLayout.NORTH);
         north.add(credentialsPanel, BorderLayout.SOUTH);
 
-        // Center: SQL text area + results table
+        // aQL text area + results table
         sqlArea = new JTextArea(8, 60);
         resultTable = new JTable();
         JSplitPane center = new JSplitPane(
@@ -84,17 +83,17 @@ public class AccountantApp extends JFrame {
         );
         center.setResizeWeight(0.3);
 
-        // South: buttons and status
+        // buttons and status
         JPanel south = new JPanel(new BorderLayout(10, 10));
 
-        // Status panel
+        // Status
         JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
         statusLabel = new JLabel("Status: Disconnected");
         statusLabel.setForeground(Color.RED);
         statusLabel.setFont(statusLabel.getFont().deriveFont(Font.BOLD));
         statusPanel.add(statusLabel);
 
-        // Button panel
+        // Buttona
         JPanel buttonPanel = new JPanel(new GridLayout(2, 3, 10, 10));
         connectBtn = new JButton("Connect");
         disconnectBtn = new JButton("Disconnect");
@@ -112,19 +111,19 @@ public class AccountantApp extends JFrame {
         south.add(statusPanel, BorderLayout.NORTH);
         south.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Frame layout
+        // Frame
         getContentPane().setLayout(new BorderLayout(10, 10));
         getContentPane().add(north, BorderLayout.NORTH);
         getContentPane().add(center, BorderLayout.CENTER);
         getContentPane().add(south, BorderLayout.SOUTH);
 
-        // Initial states
+        // inir
         disconnectBtn.setEnabled(false);
         executeBtn.setEnabled(false);
         clearSqlBtn.setEnabled(false);
         clearResultsBtn.setEnabled(false);
 
-        // Actions
+        // action
         connectBtn.addActionListener(e -> onConnect());
         disconnectBtn.addActionListener(e -> onDisconnect());
         executeBtn.addActionListener(e -> onExecute());
@@ -135,7 +134,7 @@ public class AccountantApp extends JFrame {
             System.exit(0);
         });
 
-        // Allow Enter key to trigger connection
+        // enter to trigger
         userField.addActionListener(e -> onConnect());
         passField.addActionListener(e -> onConnect());
     }
@@ -164,7 +163,7 @@ public class AccountantApp extends JFrame {
         updateConnectionStatus("Connecting...", false);
         statusLabel.setForeground(Color.ORANGE);
 
-        // Verify credentials against theaccountant.properties
+        // make sure credentials match theaccountant.properties
         Properties accountantProps = loadProps("theaccountant.properties");
         if (!accountantProps.getProperty("user").equals(username) ||
                 !accountantProps.getProperty("password").equals(password)) {
@@ -176,7 +175,7 @@ public class AccountantApp extends JFrame {
         }
         loginUsername = accountantProps.getProperty("user");
 
-        // Open connection to operationslog database using theaccountant.properties
+        // Open connection to operationslog
         try {
             conn = DBConnectionUtil.getConnection("theaccountant.properties");
             updateConnectionStatus("Connected as " + loginUsername + " to operationslog", true);
@@ -224,7 +223,7 @@ public class AccountantApp extends JFrame {
             return;
         }
 
-        // Update status to show execution
+        // Update
         String originalStatus = statusLabel.getText();
         updateConnectionStatus("Executing SQL...", true);
         statusLabel.setForeground(Color.ORANGE);
@@ -232,7 +231,7 @@ public class AccountantApp extends JFrame {
         try {
             String verb = sql.split("\\s+")[0].toLowerCase();
 
-            // Only allow SELECT, SHOW, DESC queries for theaccountant
+            // Only allow SELECT SHOW DESC queries for theaccountant
             if (List.of("select","show","desc").contains(verb)) {
                 // QUERY with scrollable result set
                 Statement stmt = conn.createStatement(
@@ -243,7 +242,7 @@ public class AccountantApp extends JFrame {
                 resultTable.setModel(new ResultSetTableModel(rs));
                 // No logging for theaccountant operations
             } else {
-                // Reject non-query commands
+                // Rejections
                 JOptionPane.showMessageDialog(this,
                         "Only SELECT, SHOW, and DESC commands are allowed for theaccountant user.",
                         "Operation Not Permitted", JOptionPane.ERROR_MESSAGE);

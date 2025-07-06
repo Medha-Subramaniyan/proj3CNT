@@ -1,3 +1,11 @@
+/*
+Name: Medha Subramaniyan
+Course: CNT 4714 Summer 2025
+Assignment title: Project 3 – A Specialized Accountant Application
+Date: July 6, 2025
+Class: DBConnectionUtil
+*/
+
 package project3.util;
 
 import java.io.InputStream;
@@ -6,13 +14,11 @@ import java.sql.DriverManager;
 import java.util.Properties;
 
 /**
- * Utility for opening JDBC connections using .properties files in /props.
+ * Utility for opening JDBC connections using props files  !!!!!
  */
 public class DBConnectionUtil {
 
-    /**
-     * Connect using a single properties file that contains driver, url, user, and password.
-     */
+    //connect using 1 file
     public static Connection getConnection(String propsFilename) throws Exception {
         Properties p = new Properties();
         try (InputStream in = DBConnectionUtil.class.getResourceAsStream("/props/" + propsFilename)) {
@@ -26,14 +32,13 @@ public class DBConnectionUtil {
         );
     }
 
-    /**
-     * Connect to the DB in dbPropsFile (driver+url) but authenticate with creds in userPropsFile.
-     */
+    // Connect to the DB in dbPropsFile
+
     public static Connection getConnection(
             String dbPropsFile,
             String userPropsFile
     ) throws Exception {
-        // Load DB‐only props (driver + url)
+        // Load DBprops
         Properties dbProps = new Properties();
         try (InputStream in = DBConnectionUtil.class.getResourceAsStream("/props/" + dbPropsFile)) {
             dbProps.load(in);

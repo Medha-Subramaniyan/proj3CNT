@@ -1,20 +1,25 @@
+/*
+Name: Medha Subramaniyan
+Course: CNT 4714 Summer 2025
+Assignment title: Project 3 – A Specialized Accountant Application
+Date: July 6, 2025
+Class: ResultSetTableModel
+*/
+
 package project3.util;
 
 import javax.swing.table.AbstractTableModel;
 import java.sql.*;
 
-/**
- * Wraps a JDBC ResultSet in a TableModel for use in a JTable.
- * Loads all data into memory to avoid cursor scrolling issues.
- */
+
 public class ResultSetTableModel extends AbstractTableModel {
     private final String[] columnNames;
     private final Object[][] data;
 
-    /**
-     * Reads all rows and columns from the ResultSet into arrays.
-     * Any SQL error is rethrown as RuntimeException.
-     */
+
+     //Reads all rows and columns from the ResultSet into arrays
+     //error gi to RuntimeException.
+
     public ResultSetTableModel(ResultSet rs) {
         try {
             ResultSetMetaData meta = rs.getMetaData();
