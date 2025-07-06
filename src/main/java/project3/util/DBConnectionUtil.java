@@ -5,15 +5,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
+/**
+ * Utility for opening JDBC connections using .properties files in /props.
+ */
 public class DBConnectionUtil {
 
     /**
-     * Original: connect using a single props file that contains driver, url, user, password
+     * Connect using a single properties file that contains driver, url, user, and password.
      */
     public static Connection getConnection(String propsFilename) throws Exception {
         Properties p = new Properties();
-        try (InputStream in = DBConnectionUtil.class
-                .getResourceAsStream("/props/" + propsFilename)) {
+        try (InputStream in = DBConnectionUtil.class.getResourceAsStream("/props/" + propsFilename)) {
             p.load(in);
         }
         Class.forName(p.getProperty("driver"));
@@ -25,7 +27,7 @@ public class DBConnectionUtil {
     }
 
     /**
-     * New: connect to the DB in dbPropsFile but authenticate with the credentials in userPropsFile
+     * Connect to the DB in dbPropsFile (driver+url) but authenticate with creds in userPropsFile.
      */
     public static Connection getConnection(
             String dbPropsFile,
@@ -33,15 +35,13 @@ public class DBConnectionUtil {
     ) throws Exception {
         // Load DB‐only props (driver + url)
         Properties dbProps = new Properties();
-        try (InputStream in = DBConnectionUtil.class
-                .getResourceAsStream("/props/" + dbPropsFile)) {
+        try (InputStream in = DBConnectionUtil.class.getResourceAsStream("/props/" + dbPropsFile)) {
             dbProps.load(in);
         }
 
         // Load user credentials
         Properties userProps = new Properties();
-        try (InputStream in = DBConnectionUtil.class
-                .getResourceAsStream("/props/" + userPropsFile)) {
+        try (InputStream in = DBConnectionUtil.class.getResourceAsStream("/props/" + userPropsFile)) {
             userProps.load(in);
         }
 

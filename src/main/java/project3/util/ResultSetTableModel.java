@@ -5,7 +5,7 @@ import java.sql.*;
 
 /**
  * Wraps a JDBC ResultSet in a TableModel for use in a JTable.
- * Loads all data into memory so row/column methods don't throw checked exceptions.
+ * Loads all data into memory to avoid cursor scrolling issues.
  */
 public class ResultSetTableModel extends AbstractTableModel {
     private final String[] columnNames;
@@ -13,7 +13,7 @@ public class ResultSetTableModel extends AbstractTableModel {
 
     /**
      * Reads all rows and columns from the ResultSet into arrays.
-     * Any SQL error is turned into a RuntimeException.
+     * Any SQL error is rethrown as RuntimeException.
      */
     public ResultSetTableModel(ResultSet rs) {
         try {
